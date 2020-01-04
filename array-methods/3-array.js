@@ -14,7 +14,16 @@ var words = [
 
 // Write a function uniqueArray that receives an array of words as a parameter. And remove the duplicates, and return a new array. 
 // (indexOf)
-
+function uniqueArray(words) {
+  let newArray = [];
+  for (word of words) { 
+    if (newArray.indexOf(word) == -1) { 
+      newArray.push(word);
+    }
+  }
+  return newArray;
+}
+console.log(uniqueArray(words));
 
 
 var words2 = [
@@ -29,7 +38,15 @@ var words2 = [
 ];
 
 // Write a function doesWordExist that will take in an array of words as one argument, and a word to search for as the other. Return true if it exists, otherwise, return false. Don't use indexOf for this one.
-
+function doesWordExist(words, search) {
+  for (word of words) {
+    if (search === word) { 
+      return true;
+    }
+	}
+	return false;
+}
+console.log(doesWordExist(words2, 'matter'));
 
 
 
@@ -49,7 +66,16 @@ var words3 = [
 
 
 // Write a function howManyTimes that will take in an array of words as one argument, and a word to search for as the other. The function will return the number of times that word appears in the array.
-
+function howManyTimes(words, search) {
+  let count = 0;
+	for (word of words) {
+		if (search === word) {
+      count++;
+		}
+	}
+	return count;
+}
+console.log(howManyTimes(words3, "matter"));
 
 
 
@@ -73,7 +99,12 @@ let data = [
     pop: 263991379,
   }
 ]
-
+console.log(data.reduce(function(previous, current) { 
+  if (current.country !== 'China') { 
+    previous += current.pop;
+  }
+  return previous;
+}, 0));
 
 // Use reduce method and summorize the collection like
 // { banana: 2, cherry: 3, orange: 3, apple: 2, fig: 1 }
@@ -90,7 +121,16 @@ const fruitBasket = [
   'orange',
   'fig'
 ];
-
+console.log(
+  fruitBasket.reduce(function (previous, current) {
+    if (previous[current] === undefined) {
+      previous[current] = 1;
+    } else {
+      previous[current]++;
+    }
+		return previous;
+	}, {})
+);
 
 
 // Bonus Question (Solve only if you have time)
@@ -118,3 +158,27 @@ var matrix = [
 ];
 // In the 20×20 grid above What is the greatest product of four adjacent numbers in the same direction (up, down, left, right)?
 // Write a function greatestProduct to find the answer!
+function getCell(matrix, x, y) { 
+  if (y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length) {
+		return matrix[y][x];
+  }
+  return 0;
+}
+
+function greatestProduct(matrix) { 
+  let result = 0;
+  for (let y = 0; y < matrix.length; y++) { 
+    for (let x = 0; x < matrix[y].length; x++) { 
+      let prodHoriz = 1, prodVert = 1, prodDiagR = 1, prodDiagL = 1;
+      for (let i = 0; i < 4; i++) { 
+        prodHoriz *= getCell(matrix, x + i, y); 
+        prodVert *= getCell(matrix, x, y + i); 
+        prodDiagR = getCell(matrix, x + i, y + i);
+        prodDiagL = getCell(matrix, x - i, y + i);
+      }
+      result = Math.max(prodHoriz, prodVert, prodDiagR, prodDiagL, result);
+    }
+  }
+  return result;
+}
+console.log(greatestProduct(matrix));

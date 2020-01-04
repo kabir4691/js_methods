@@ -1,4 +1,10 @@
 // 1. Write a JavaScript program to list the properties and values of a JavaScript object. (Object.keys)
+function listPropAndValsOfObject(object) { 
+  for (key of Object.keys(object)) { 
+    console.log(`${key}: ${object[key]}`);
+  }
+}
+
 
 
 
@@ -9,7 +15,12 @@ var student = {
   rollno : 12
 };
 
-
+console.log(listPropAndValsOfObject(student));
+delete student.rollno;
+console.log(listPropAndValsOfObject(student));
 
 
 // 3. Write a function to get the length of an object.
+function getObjectLength(object) { 
+  return Object.keys(object).length;
+}

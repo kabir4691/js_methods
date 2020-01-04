@@ -11,36 +11,124 @@
     <script>
       // Go through todo.md before start solving.
       function countAllPeople() {
-        // your code goes here
-        console.log(got);
+        function countPeopleInAllHouses(total, house) {
+          return total + house.people.length;
+        }
+
+        let houseList = got.houses;
+        return houseList.reduce(countPeopleInAllHouses, 0);
       }
 
       function peopleByHouses() {
-        // your code goes here
+        function countPeopleInHouse(object, house) {
+          object[house.name] = house.people.length;
+          return object;
+        }
+
+        return  got.houses.reduce(countPeopleInHouse, {});      
       }
 
       function everyone() {
-        // your code goes here
+        function getPeopleNames(array, person) {
+          array.push(person.name);
+          return array;
+        }
+
+        let houseList = got.houses;
+        let personList = [];
+        houseList.forEach(house => {
+          personList = personList.concat(house.people.reduce(getPeopleNames, []));
+        });
+
+        return personList;
       }
 
       function nameWithS() {
-        // your code goes here
+        function getPeopleNamesWithS(array, person) {
+          let name = person.name;
+          if (name.includes("s") || name.includes("S")) {
+            array.push(name);
+          }
+          return array;
+        }
+
+        let houseList = got.houses;
+        let personList = [];
+        houseList.forEach(house => {
+          personList = personList.concat(house.people.reduce(getPeopleNamesWithS, []));
+        });
+
+        return personList;
       }
 
       function nameWithA() {
-        // your code goes here
+        function getPeopleNamesWithA(array, person) {
+          let name = person.name;
+          if (name.includes("a") || name.includes("A")) {
+            array.push(name);
+          }
+          return array;
+        }
+
+        let houseList = got.houses;
+        let personList = [];
+        houseList.forEach(house => {
+          personList = personList.concat(house.people.reduce(getPeopleNamesWithA, []));
+        });
+
+        return personList;
       }
 
       function surnameWithS() {
-        // your code goes here
+        function getPeopleNamesWithSurnameS(array, person) {
+          let name = person.name;
+          let nameSplit = name.split(" ");
+          if (nameSplit[1].startsWith("S")) {
+            array.push(name);
+          }
+          return array;
+        }
+
+        let houseList = got.houses;
+        let personList = [];
+        houseList.forEach(house => {
+          personList = personList.concat(house.people.reduce(getPeopleNamesWithSurnameS, []));
+        });
+
+        return personList;
       }
 
       function surnameWithA() {
-        // your code goes here
+        function getPeopleNamesWithSurnameS(array, person) {
+          let name = person.name;
+          let nameSplit = name.split(" ");
+          if (nameSplit[1].startsWith("A")) {
+            array.push(name);
+          }
+          return array;
+        }
+
+        let houseList = got.houses;
+        let personList = [];
+        houseList.forEach(house => {
+          personList = personList.concat(house.people.reduce(getPeopleNamesWithSurnameS, []));
+        });
+
+        return personList;
       }
 
       function peopleNameOfAllHouses() {
-        // your code goes here
+          function getPeopleNames(array, person) {
+            array.push(person.name);
+            return array;
+        }
+
+        let houseList = got.houses;
+        let object = {};
+        houseList.forEach(house => {
+          object[house.name] = house.people.reduce(getPeopleNames, []);
+        });
+        return object;
       }
 
       // Testing your result after writing your function
